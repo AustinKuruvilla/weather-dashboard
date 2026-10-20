@@ -1,0 +1,211 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="{% static 'weather/style.css' %}">
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" href="/">Weatherly</a>
+        <span class="header-label">WEATHER DASHBOARD</span>
+    </header>
+
+    <main class="container">
+        <section class="intro">
+            <p class="eyebrow">YOUR DAILY FORECAST</p>
+            <h1>Weather at a glance.</h1>
+            <p class="subtitle">Check the current weather and plan your day.</p>
+        </section>
+
+        <section class="search-card">
+        <form method="get" action="/" id="weather-form">
+        <label for="city">Search for a city</label>
+
+        <div class="search-row">
+            <input
+                type="text"
+                id="city"
+                name="city"
+                placeholder="e.g. Kochi"
+                value="{{ city }}"
+                required
+                autocomplete="off"
+            >
+
+            <button type="submit" id="search-button">
+                Search
+            </button>
+        </div>
+
+        <div class="loading" id="loading">
+            <span class="loading-spinner"></span>
+            <span>Getting the latest weather...</span>
+        </div>
+        </form>
+        </section>
+
+{% if recent_searches %}
+    <section class="recent-searches">
+        <h2>Recently searched</h2>
+        <p class="muted">Select a city to check its weather again.</p>
+
+        <div class="recent-city-list">
+            {% for item in recent_searches %}
+                <a
+                    class="recent-city"
+                    href="/?city={{ item.city|urlencode }}"
+                >
+                    <span class="recent-city-name">
+                        {{ item.city }}, {{ item.country }}
+                    </span>
+
+                    <span class="recent-city-time">
+                        {{ item.searched_at|date:"M j, g:i A" }}
+                    </span>
+
+                    <span aria-hidden="true">→</span>
+                </a>
+            {% endfor %}
+        </div>
+    </section>
+{% endif %}
+
+
+    {% if error %}
+        <section class="weather-card weather-error" role="alert">
+            <div class="error-icon" aria-hidden="true">!</div>
+
+            <div>
+                <p class="muted">WEATHER SERVICE</p>
+                <h2>Weather unavailable</h2>
+                <p>{{ error }}</p>
+            </div>
+        </section>
+        {% elif weather %}
+            <section class="weather-card current-weather-card">
+                <div class="weather-heading">
+                    <div>
+                        <p class="muted">CURRENT WEATHER</p>
+                        <h2>{{ city }}, {{ weather.country }}</h2>
+                        <p class="muted">Local time: {{ weather.localtime }}</p>
+                    </div>
+
+                    <img
+                        class="weather-icon"
+                        src="{{ weather.icon }}"
+                        alt="{{ weather.condition }}"
+                    >
+                </div>
+
+                <div class="temperature">
+                    <span>{{ weather.temperature }}°C</span>
+                    <div>
+                        <strong>{{ weather.condition }}</strong>
+                        <p class="muted">
+                            Feels like {{ weather.feels_like }}°C
+                        </p>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat">
+                        <span>Humidity</span>
+                        <strong>{{ weather.humidity }}%</strong>
+                    </div>
+
+                    <div class="stat">
+                        <span>Wind speed</span>
+                        <strong>{{ weather.wind_speed }} km/h</strong>
+                    </div>
+
+                    <div class="stat">
+                        <span>Pressure</span>
+                        <strong>{{ weather.pressure }} hPa</strong>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+
+        
+{% if forecast %}
+    <section class="forecast-section">
+
+        <div class="forecast-heading">
+            <div>
+                <p class="muted">FORECAST</p>
+                <h2>3-day forecast</h2>
+            </div>
+
+            <p class="muted">Daily outlook for {{ city }}</p>
+        </div>
+
+        <div class="forecast-grid">
+
+            {% for day in forecast %}
+
+                <article class="forecast-card">
+
+                    <div class="forecast-date">
+                        <h3>{{ day.date }}</h3>
+                    </div>
+
+                    <img
+                        class="forecast-icon"
+                        src="{{ day.icon }}"
+                        alt="{{ day.condition }}"
+                    >
+
+                    <p class="forecast-condition">
+                        {{ day.condition }}
+                    </p>
+
+                    <div class="forecast-temperatures">
+                        <strong>{{ day.max_temp }}°C</strong>
+                        <span>{{ day.min_temp }}°C</span>
+                    </div>
+
+                    <div class="forecast-detail">
+                        <span>Rain chance</span>
+                        <strong>{{ day.chance_of_rain }}%</strong>
+                    </div>
+
+                    <div class="forecast-detail">
+                        <span>Sunrise</span>
+                        <strong>{{ day.sunrise }}</strong>
+                    </div>
+
+                    <div class="forecast-detail">
+                        <span>Sunset</span>
+                        <strong>{{ day.sunset }}</strong>
+                    </div>
+
+                </article>
+
+            {% endfor %}
+
+        </div>
+    </section>
+{% endif %}
+
+
+        <footer>
+            <p>Weather Dashboard · Learning Project</p>
+        </footer>
+    </main>
+    <script>
+    const form = document.getElementById("weather-form");
+    const button = document.getElementById("search-button");
+    const loading = document.getElementById("loading");
+
+    form.addEventListener("submit", function () {
+        button.disabled = true;
+        button.textContent = "Searching...";
+        loading.style.display = "flex";
+    });
+    </script>
+</body>
+</html>
