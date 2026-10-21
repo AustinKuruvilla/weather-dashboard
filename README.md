@@ -41,14 +41,21 @@ This project demonstrates practical skills in backend development, REST API cons
 
 ## 🖥️ Application Preview
 
-*Screenshots will be added after capturing the running application.*
+### Dashboard
 
-Recommended screenshots:
+![Weather Dashboard](screenshots/dashboard.png)
 
-1. Main dashboard with current weather.
-2. Three-day forecast.
-3. Recent searches.
-4. Invalid-city error message.
+### Three-Day Forecast
+
+![Three-Day Forecast](screenshots/forecast.png)
+
+### Recent Searches
+
+![Recent Searches](screenshots/recent-searches.png)
+
+### Error Handling
+
+![Error Handling](screenshots/error-message.png)
 
 ## 📂 Project Structure
 
