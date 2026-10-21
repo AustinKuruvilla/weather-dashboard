@@ -41,7 +41,23 @@ This project demonstrates practical skills in backend development, REST API cons
 
 ## 🖥️ Application Preview
 
-*Screenshots will be added after capturing the running application.*
+### Dashboard
+
+![Weather Dashboard](screenshots/dashboard.png)
+
+### Three-Day Forecast
+
+![Three-Day Forecast](screenshots/forecast.png)
+
+### Recent Searches
+
+![Recent Searches](screenshots/searche-history.png)
+
+### Error Handling
+
+![Error Handling](screenshots/invalid-input.png)
+
+
 
 Recommended screenshots:
 
