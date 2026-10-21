@@ -51,11 +51,11 @@ This project demonstrates practical skills in backend development, REST API cons
 
 ### Recent Searches
 
-![Recent Searches](screenshots/search history.png)
+![Recent Searches](screenshots/search-history.png)
 
 ### Error Handling
 
-![Error Handling](screenshots/invalid input.png)
+![Error Handling](screenshots/invalid-input.png)
 
 
 
