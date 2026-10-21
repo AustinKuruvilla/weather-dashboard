@@ -50,7 +50,7 @@ This project demonstrates practical skills in backend development, REST API cons
 
 ### Recent Searches
 
-![Recent Searches](screenshots/recent-searches.png)
+![Recent Searches](screenshots/recent-search.png)
 
 ### Error Handling
 
